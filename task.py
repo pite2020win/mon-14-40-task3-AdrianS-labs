@@ -28,3 +28,55 @@
 #
 #Delete these comments before commit!
 #Good luck.
+
+class Student:
+    grades = []
+    presences = []
+    def __init__(self, name, surname):
+        self.name = name
+        self.surname = surname
+
+    def add_new_grade(self,grade):
+        self.grades.append(grade)
+
+    def calculate_avg(self):
+      sum=0
+        amount_of_grades = len(self.grades)
+        for i in self.grades:
+            sum += self.grades[i]
+        avg_grade = sum / amount_of_grades
+        return avg_grade
+    
+    
+
+class Subject:
+    list_of_students = []
+    def __init__(self, subject_name):
+        self.subject_name = subject_name
+
+    def add_student(self, student):
+        list_of_students.append(student)
+
+    def add_presence(self, precence, student):
+        if presence == "present":
+            student.presences.append("present")
+        elif presence == "absent":
+            student.presences.append("absent")
+
+    def check_presence(self,student):
+        amount_of_lessons = len(student.presences)
+        sum = 0
+        for i in student.presences:
+            if student.presences[i] == "present":
+                sum += 1
+        precentage_of_presence = sum / amount_of_lessons
+        return precentage_of_presence
+
+
+if __name__ == '__main__':  
+    student = Student("A", "S")
+    student.add_new_grade(1)
+    student.add_new_grade(4)
+    student.add_new_grade(5)
+    avg = student.calculate_avg()
+    print(avg)
