@@ -40,10 +40,10 @@ class Student:
         self.grades.append(grade)
 
     def calculate_avg(self):
-      sum=0
+        sum=0
         amount_of_grades = len(self.grades)
         for i in self.grades:
-            sum += self.grades[i]
+            sum += i
         avg_grade = sum / amount_of_grades
         return avg_grade
     
@@ -67,7 +67,7 @@ class Subject:
         amount_of_lessons = len(student.presences)
         sum = 0
         for i in student.presences:
-            if student.presences[i] == "present":
+            if i == "present":
                 sum += 1
         precentage_of_presence = sum / amount_of_lessons
         return precentage_of_presence
