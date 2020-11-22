@@ -1,82 +1,142 @@
-# Class diary
-#
-# Create program for handling lesson scores.
-# Use python to handle student (highscool) class scores, and attendance.
-# Make it possible to:
-# - Get students total average score (average across classes)
-# - get students average score in class
-# - hold students name and surname
-# - Count total attendance of student
-#
-# Please, use your imagination and create more functionalities.
-# Your project should be able to handle entire school(s?).
-# If you have enough courage and time, try storing (reading/writing)
-# data in text files (YAML, JSON).
-# If you have even more courage, try implementing user interface (might be text-like).
-#
-#Try to expand your implementation as best as you can. 
-#Think of as many features as you can, and try implementing them.
-#Make intelligent use of pythons syntactic sugar (overloading, iterators, generators, etc)
-#Most of all: CREATE GOOD, RELIABLE, READABLE CODE.
-#The goal of this task is for you to SHOW YOUR BEST python programming skills.
-#Impress everyone with your skills, show off with your code.
-#
-#Your program must be runnable with command "python task.py".
-#Show some usecases of your library in the code (print some things)
-#
-#When you are done upload this code to your github repository. 
-#
-#Delete these comments before commit!
-#Good luck.
+from statistics import mean
+from dataclasses import dataclass
+from typing import List
+from random import randint
+import json
 
+@dataclass
 class Student:
-    grades = []
-    presences = []
-    def __init__(self, name, surname):
-        self.name = name
-        self.surname = surname
+    name: str
+    surname: str
+    grades: dict
+    presences: dict
 
-    def add_new_grade(self,grade):
-        self.grades.append(grade)
+    def add_new_grade(self,grade,subject_name):
+        self.grades[subject_name].append(grade) 
 
-    def calculate_avg(self):
-        sum=0
-        amount_of_grades = len(self.grades)
-        for i in self.grades:
-            sum += i
-        avg_grade = sum / amount_of_grades
-        return avg_grade
+    def calculate_avg(self, subject_name):
+        return mean(self.grades[subject_name])
+    
+    def calculate_presence(self, subject_name):
+        return mean(self.presences[subject_name]) * 100
+    
+    def append_subject_name(self, subject_name):
+        if subject_name not in self.grades and subject_name not in self.presences:
+            self.grades[subject_name] = []
+            self.presences[subject_name] = []
     
     
-
+@dataclass
 class Subject:
-    list_of_students = []
-    def __init__(self, subject_name):
-        self.subject_name = subject_name
+    subject_name: str
+    list_of_students: List[Student]
 
     def add_student(self, student):
-        list_of_students.append(student)
+        student.append_subject_name(self.subject_name)
+        self.list_of_students.append(student)
 
-    def add_presence(self, precence, student):
-        if presence == "present":
-            student.presences.append("present")
-        elif presence == "absent":
-            student.presences.append("absent")
+    def add_presence(self, presence, student):
+        if presence == 'present':
+            student.presences[self.subject_name].append(1)
+        elif presence == 'absent':
+            student.presences[self.subject_name].append(0)
 
-    def check_presence(self,student):
-        amount_of_lessons = len(student.presences)
-        sum = 0
-        for i in student.presences:
-            if i == "present":
-                sum += 1
-        precentage_of_presence = sum / amount_of_lessons
-        return precentage_of_presence
+    def avg_grade_for_every_student(self):
+        result = list(map(lambda x: mean(x.grades[self.subject_name]), self.list_of_students))
+        return result
+
+@dataclass
+class School:
+    school_name: str
+    list_of_subjects: List[Subject]
+
+    def add_subject(self, subject):
+        self.list_of_subjects.append(subject)
+
+    def get_all_grades(self):
+        all_grades = []
+        for subjects in self.list_of_subjects:
+            for student in subjects.list_of_students:
+                all_grades.append(student.grades[subjects.subject_name])
+        return all_grades
+
+    def get_students_names(self):
+        ret_list = []
+        for subject in self.list_of_subjects:
+            for student in subject.list_of_students:
+                ret_list.append(student.name)
+        return ret_list
 
 
-if __name__ == '__main__':  
-    student = Student("A", "S")
-    student.add_new_grade(1)
-    student.add_new_grade(4)
-    student.add_new_grade(5)
-    avg = student.calculate_avg()
-    print(avg)
+def rand_list(length, min_value, max_value):
+    return_list = []
+    for i in range(1, length):
+        return_list.append(randint(min_value, max_value))
+    return return_list
+
+def find_student(searched_student, schools):
+    found_schools = []
+    found_subjects = []
+    for school in schools:
+        for subject in school.list_of_subjects:
+            for student in subject.list_of_students:
+                if student.name == searched_student.name and student.surname == searched_student.surname:
+                    found_schools.append(school.school_name)
+                    found_subjects.append(subject.subject_name)
+    return {"schools" : found_schools, "subjects": found_subjects}
+
+def store_to_json(object_to_store, file_name):
+    diction = {}
+    diction[object_to_store.school_name] = []
+    index = 0
+    for subject in object_to_store.list_of_subjects:
+        diction[object_to_store.school_name].append({'subject' : subject.subject_name, 'students' : []})
+        for student in subject.list_of_students:
+            diction[object_to_store.school_name][index]['students'].append(student.__dict__)
+        index += 1
+    with open('{}.json'.format(file_name), 'w') as fp:
+        json.dump(diction, fp, indent=4)
+    
+    
+if __name__ == '__main__':
+
+    students = []
+    school1 = School('school1', [])
+    school2 = School('school2', [])
+    schools = [school1, school2]
+
+    math = Subject('math', [])
+    physics = Subject('physics', [])
+    pe = Subject('pe', [])
+
+    school1.add_subject(math)
+    school1.add_subject(physics)
+    school2.add_subject(pe)
+    
+    for i in range(0,12):
+        students.append(Student("name{}".format(i),"surname{}".format(i), {}, {}))
+        subj_name = ''
+        rand_num = randint(0,2)
+        if rand_num == 0:
+            subj_name = 'math'
+            math.add_student(students[i])
+        elif rand_num == 1:
+            subj_name = 'physics'
+            physics.add_student(students[i])
+        else:
+            subj_name = 'pe'
+            pe.add_student(students[i])
+        students[i].grades[subj_name] = rand_list(8,1,5)
+        students[i].presences[subj_name] = rand_list(5,0,1)
+
+    math.add_student(students[0])
+    students[0].grades[math.subject_name] = rand_list(8,1,5)
+    students[0].presences[math.subject_name] = rand_list(5,0,1)
+    print('avarage of {} student in the {} class: {}'.format(students[0].name, math.subject_name, students[0].calculate_avg(math.subject_name)))
+    print('presence of {} student in the {} class: {}'.format(students[0].name, math.subject_name, students[0].calculate_presence(math.subject_name)))
+    print('find students {} school: {} and subjects: {}'.format(students[2].name, find_student(students[2], schools)['schools'], find_student(students[2], schools)['subjects']))
+    print('avarage grade for every student in math class: {}'.format(math.avg_grade_for_every_student()))
+    print('get all grades of students from shchool: {}'.format(school2.get_all_grades()))
+    print('get name of every student : {}'.format(school2.get_students_names()))
+
+    store_to_json(school1, 'school1')

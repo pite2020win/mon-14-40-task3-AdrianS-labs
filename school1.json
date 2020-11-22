@@ -1,0 +1,259 @@
+{
+    "school1": [
+        {
+            "subject": "math",
+            "students": [
+                {
+                    "name": "name1",
+                    "surname": "surname1",
+                    "grades": {
+                        "math": [
+                            2,
+                            5,
+                            5,
+                            3,
+                            4,
+                            4,
+                            4
+                        ]
+                    },
+                    "presences": {
+                        "math": [
+                            0,
+                            0,
+                            1,
+                            0
+                        ]
+                    }
+                },
+                {
+                    "name": "name4",
+                    "surname": "surname4",
+                    "grades": {
+                        "math": [
+                            5,
+                            5,
+                            2,
+                            1,
+                            5,
+                            5,
+                            3
+                        ]
+                    },
+                    "presences": {
+                        "math": [
+                            0,
+                            1,
+                            0,
+                            0
+                        ]
+                    }
+                },
+                {
+                    "name": "name6",
+                    "surname": "surname6",
+                    "grades": {
+                        "math": [
+                            3,
+                            4,
+                            4,
+                            2,
+                            4,
+                            2,
+                            1
+                        ]
+                    },
+                    "presences": {
+                        "math": [
+                            0,
+                            0,
+                            1,
+                            0
+                        ]
+                    }
+                },
+                {
+                    "name": "name11",
+                    "surname": "surname11",
+                    "grades": {
+                        "math": [
+                            5,
+                            5,
+                            3,
+                            1,
+                            2,
+                            2,
+                            2
+                        ]
+                    },
+                    "presences": {
+                        "math": [
+                            0,
+                            1,
+                            1,
+                            1
+                        ]
+                    }
+                },
+                {
+                    "name": "name0",
+                    "surname": "surname0",
+                    "grades": {
+                        "pe": [
+                            4,
+                            3,
+                            1,
+                            2,
+                            5,
+                            2,
+                            4
+                        ],
+                        "math": [
+                            2,
+                            2,
+                            3,
+                            1,
+                            1,
+                            1,
+                            3
+                        ]
+                    },
+                    "presences": {
+                        "pe": [
+                            0,
+                            1,
+                            0,
+                            0
+                        ],
+                        "math": [
+                            0,
+                            1,
+                            1,
+                            1
+                        ]
+                    }
+                }
+            ]
+        },
+        {
+            "subject": "physics",
+            "students": [
+                {
+                    "name": "name2",
+                    "surname": "surname2",
+                    "grades": {
+                        "physics": [
+                            2,
+                            1,
+                            5,
+                            5,
+                            5,
+                            1,
+                            5
+                        ]
+                    },
+                    "presences": {
+                        "physics": [
+                            0,
+                            1,
+                            0,
+                            0
+                        ]
+                    }
+                },
+                {
+                    "name": "name3",
+                    "surname": "surname3",
+                    "grades": {
+                        "physics": [
+                            4,
+                            3,
+                            3,
+                            1,
+                            4,
+                            4,
+                            3
+                        ]
+                    },
+                    "presences": {
+                        "physics": [
+                            1,
+                            0,
+                            0,
+                            0
+                        ]
+                    }
+                },
+                {
+                    "name": "name7",
+                    "surname": "surname7",
+                    "grades": {
+                        "physics": [
+                            5,
+                            2,
+                            5,
+                            4,
+                            3,
+                            5,
+                            5
+                        ]
+                    },
+                    "presences": {
+                        "physics": [
+                            0,
+                            1,
+                            1,
+                            1
+                        ]
+                    }
+                },
+                {
+                    "name": "name8",
+                    "surname": "surname8",
+                    "grades": {
+                        "physics": [
+                            1,
+                            3,
+                            4,
+                            4,
+                            2,
+                            1,
+                            1
+                        ]
+                    },
+                    "presences": {
+                        "physics": [
+                            1,
+                            1,
+                            0,
+                            1
+                        ]
+                    }
+                },
+                {
+                    "name": "name9",
+                    "surname": "surname9",
+                    "grades": {
+                        "physics": [
+                            3,
+                            1,
+                            2,
+                            2,
+                            5,
+                            2,
+                            4
+                        ]
+                    },
+                    "presences": {
+                        "physics": [
+                            0,
+                            1,
+                            0,
+                            0
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
